@@ -1,0 +1,42 @@
+<ng-container *ngIf="launchDetails$ | async as launchDetails">
+  <section class="launch-details">
+    <div class="navigation">
+      <span class="head-back-link" [routerLink]="['/']"> <span>&#8249;</span> Back</span>
+    </div>
+    <div class="launch-description">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ launchDetails.mission_name }}</mat-card-title>
+        </mat-card-header>
+        <img [src]="launchDetails.links.mission_patch"
+          alt="Mission patch of {{ launchDetails.mission_name }}" />
+        <mat-card-content>
+          <p>{{ launchDetails.details }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <section class="photo-grid">
+      <div class="selected-photo">
+        <img [src]="SelectedPhoto" alt="">
+      </div>
+      <div class="photo-list">
+        <button (click)="ChangeSegment(-1)"><</button>
+        <div *ngFor="let pic of PhotosList; let i = index">          
+          <div class="photo-segment" *ngIf="this.CurrentSegment == i">
+            <span *ngIf="pic[0]" class="photo-item">
+              <img [src]="pic[0]" (click)="ChangePhoto(i,0)" alt="Picture of {{ launchDetails.mission_name }}" loading="lazy" />
+            </span>
+            <span *ngIf="pic[1]" class="photo-item">
+              <img [src]="pic[1]" (click)="ChangePhoto(i,1)" alt="Picture of {{ launchDetails.mission_name }}" loading="lazy" />
+            </span>
+            <span *ngIf="pic[2]" class="photo-item">
+              <img [src]="pic[2]" (click)="ChangePhoto(i,2)" alt="Picture of {{ launchDetails.mission_name }}" loading="lazy" />
+            </span>
+          </div>
+        </div>
+        <button (click)="ChangeSegment(1)">></button>
+          
+      </div>
+    </section>
+  </section>
+</ng-container>
